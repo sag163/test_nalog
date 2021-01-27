@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <script src="{% static 'jquery.js'%}"></script>
+      <script type="text/javascript">
+         $(function(){
+         $('#form').submit(function(e){
+           e.preventDefault();
+           var data = $(this).serialize();
+           $.ajax({
+             type:"POST",
+             url:"/",
+             data: data,
+             success: function(result){$('#result').html(result);}
+           });
+         });
+         });
+         
+      </script>
+   </head>
+   <body>
+      <form id='form'>
+         <label >Введите ИНН/ОГРН</label>
+         {% csrf_token %}
+         {{ form.request_numbers }}
+         {% if form.errors %}
+         {% for error in form.title.errors %}
+         <span class="form__error">{{ error|escape }}</span>
+         {% endfor %}
+         {% endif %}
+         <button type="submit" class="button button_style_blue">Проверить</button>
+         <p>Результат:
+         <div id="result"></div>
+         </p>
+      </form>
+      {% include "result_item.html" %}
+   </body>
+</html>

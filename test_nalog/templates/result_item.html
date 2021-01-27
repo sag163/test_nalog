@@ -1,0 +1,18 @@
+{% csrf_token %}
+<div class="card__body">
+   <table border="1">
+      <caption>Результаты запросов</caption>
+      <tr>
+         <th>Запрос</th>
+         <th>Ответ</th>
+         <th>Дата</th>
+      </tr>
+      {% for item in result %}			
+      <tr>
+         <td>{{ item.request_numbers }}</td>
+         <td>{{ item.answer }}</td>
+         <td>{{ item.date_request }}</td>
+      </tr>
+      {% endfor %}
+   </table>
+</div>
