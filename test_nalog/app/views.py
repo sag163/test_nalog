@@ -12,6 +12,9 @@ from .cache import cache_func
 from django.views.generic import View
 
 
+
+
+
 def get_html(search_number):
     chromedriver = "/home/sag163/Документы/project/nalog/test_nalog/app/chromedriver"
     options = webdriver.ChromeOptions()
@@ -103,7 +106,6 @@ class Index(View):
             return HttpResponse("Проверьте введеные значения")
         answer = get_content(number)
         inn_ogrn = inn_or_ogrn(number)
-        print(inn_ogrn)
         if answer:
             Nalog.objects.create(request_numbers=number, answer=result_true)
             return HttpResponse(result_true)
